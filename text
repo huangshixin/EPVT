@@ -1,0 +1,16 @@
+dang ka
+
+
+python -m torch.distributed.launch --nproc_per_node 8 --master_port 15040  main.py \
+--cfg configs/swin_tiny_patch4_window7_224.yaml --data-path <imagenet-path> --batch-size 128
+
+python -m torch.distributed.launch --nproc_per_node 2 --master_port 15040 main.py \
+--cfg configs/cfg.yml --data-path /home/zhangfeng/public_DataSet/MyImagenet  --batch-size 256
+
+single-card
+python -m torch.distributed.launch --nproc_per_node 1 --master_port 15040 main.py \
+--cfg configs/cfg.yml --data-path /home/zhangfeng/public_DataSet/MyImagenet  --batch-size 512
+
+
+python -m torch.distributed.launch --nproc_per_node 1 --master_port 12345  main.py \
+ --cfg configs/cfg.yml --data-path /home/zhangfeng/public_DataSet/MyImagenet  --batch-size 512
