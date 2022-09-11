@@ -1,0 +1,45 @@
+    **kwargs
+    )
+    return model
+
+@register_model
+def hornet_large_7x7(pretrained=False,in_22k=False, **kwargs):
+    s = 1.0/3.0
+    model = HorNet(depths=[2, 3, 18, 2], base_dim=192, block=Block,
+    gnconv=[
+        partial(gnconv, order=2, s=s),
+        partial(gnconv, order=3, s=s),
+        partial(gnconv, order=4, s=s),
+        partial(gnconv, order=5, s=s),
+    ],
+    **kwargs
+    )
+    return model
+
+@register_model
+def hornet_large_gf(pretrained=False,in_22k=False, **kwargs):
+    s = 1.0/3.0
+    model = HorNet(depths=[2, 3, 18, 2], base_dim=192, block=Block,
+    gnconv=[
+        partial(gnconv, order=2, s=s),
+        partial(gnconv, order=3, s=s),
+        partial(gnconv, order=4, s=s, h=14, w=8, gflayer=GlobalLocalFilter),
+        partial(gnconv, order=5, s=s, h=7, w=4, gflayer=GlobalLocalFilter),
+    ],
+    **kwargs
+    )
+    return model
+
+@register_model
+def hornet_large_gf_img384(pretrained=False,in_22k=False, **kwargs):
+    s = 1.0/3.0
+    model = HorNet(depths=[2, 3, 18, 2], base_dim=192, block=Block,
+    gnconv=[
+        partial(gnconv, order=2, s=s),
+        partial(gnconv, order=3, s=s),
+        partial(gnconv, order=4, s=s, h=24, w=13, gflayer=GlobalLocalFilter),
+        partial(gnconv, order=5, s=s, h=12, w=7, gflayer=GlobalLocalFilter),
+    ],
+    **kwargs
+    )
+    return model
